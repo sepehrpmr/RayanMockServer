@@ -1,0 +1,2315 @@
+[
+  {
+    "idx": 1,
+    "method": "POST",
+    "url": "/api/v1/authenticate",
+    "title": "ورود سیستمی",
+    "response": {
+      "clientToken": "mock_client_token_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    },
+    "errorResponse": {
+      "errorCode": 10002,
+      "errorDescription": "نام کاربری یا کلمه عبور برای دسترسی به سرویس اشتباه است"
+    },
+    "reqBody": {
+      "username": "user_client",
+      "password": "client_password_123"
+    }
+  },
+  {
+    "idx": 2,
+    "method": "PUT",
+    "url": "/api/v1/changePassword",
+    "title": "تغییرکلمه عبور",
+    "response": true,
+    "errorResponse": {
+      "errorCode": 10020,
+      "errorDescription": "کلمه عبور قبلی اشتباه است"
+    },
+    "reqBody": {
+      "oldPass": "OldPassword123!",
+      "newPass": "NewPassword456!"
+    }
+  },
+  {
+    "idx": 3,
+    "method": "POST",
+    "url": "/api/v1/login",
+    "title": "سرویس ورود سرمایه گذار به سیستم",
+    "response": {
+      "siteuserId": 10521,
+      "username": "investor_user",
+      "customerId": 48201,
+      "customerFullName": "علی محمدی",
+      "nationalCode": "{{nationalCode}}",
+      "birthCertificationNumber": "1234",
+      "parentName": "رضا",
+      "authToken": "mock_auth_token_a8f9c1e4-52d3-4a11-b88e-7e9b0d6f3a12",
+      "branchName": "شعبه مرکزی",
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "customerStatusId": 1,
+      "latestChangePasswordDate": "1403/04/15 11:30:20",
+      "passwordIsExpired": "0",
+      "bourseAccounts": "علی67891",
+      "bankAccounts": [
+        {
+          "bankAccountId": 12054,
+          "accountNumber": "0105829104008",
+          "baTypeName": "کوتاه مدت",
+          "bankId": 1,
+          "bankName": "ملی ایران",
+          "bankBranch": "مرکزی",
+          "bankBranchCode": "001",
+          "shabaNumber": "IR120170000000105829104008",
+          "isDefault": 1
+        }
+      ],
+      "cellPhone": "09123456789",
+      "isLegal": 0
+    },
+    "errorResponse": {
+      "errorCode": 10002,
+      "errorDescription": "نام کاربری یا کلمه عبور اشتباه است"
+    },
+    "reqBody": {
+      "code": "{{dsCode}}",
+      "username": "investor_user",
+      "password": "InvestorPassword123!"
+    }
+  },
+  {
+    "idx": 4,
+    "method": "GET",
+    "url": "/api/v1/captcha",
+    "title": "سرویس دریافت کد کپچا",
+    "response": {
+      "trackingNumber": "trk_987123456",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADa6z3PAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI+SURBVGhD7ZhNTsNAEIWf2E6VihsgrjlgWXDDFXqD3gA3wA04ATfs2HACHAHchSt2VVKkCi"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 5,
+    "method": "POST",
+    "url": "/api/v1/checkCaptchaValidation",
+    "title": "سرویس بررسی صحت کد کپچا",
+    "response": "کد امنیتی وارد شده صحیح است",
+    "errorResponse": {
+      "errorCode": 10123,
+      "errorDescription": "کد امنیتی وارد شده صحیح نمی باشد"
+    },
+    "reqBody": {
+      "trackingNumber": "trk_987123456",
+      "captcha": "1234"
+    }
+  },
+  {
+    "idx": 6,
+    "method": "POST",
+    "url": "/api/v2/login",
+    "title": "ورود سرمایه گذار به سیستم -V2  (با کپچا)",
+    "response": {
+      "siteuserId": 10521,
+      "username": "investor_user",
+      "customerId": 48201,
+      "customerFullName": "علی محمدی",
+      "nationalCode": "{{nationalCode}}",
+      "birthCertificationNumber": "1234",
+      "parentName": "رضا",
+      "authToken": "mock_auth_token_a8f9c1e4-52d3-4a11-b88e-7e9b0d6f3a12",
+      "branchName": "شعبه مرکزی",
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "customerStatusId": 1,
+      "latestChangePasswordDate": "1403/04/15 11:30:20",
+      "passwordIsExpired": "0",
+      "bourseAccounts": "علی67891",
+      "bankAccounts": [
+        {
+          "bankAccountId": 12054,
+          "accountNumber": "0105829104008",
+          "baTypeName": "کوتاه مدت",
+          "bankId": 1,
+          "bankName": "ملی ایران",
+          "bankBranch": "مرکزی",
+          "bankBranchCode": "001",
+          "shabaNumber": "IR120170000000105829104008",
+          "isDefault": 1
+        }
+      ],
+      "cellPhone": "09123456789",
+      "isLegal": 0
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "code": "{{dsCode}}",
+      "username": "investor_user",
+      "password": "InvestorPassword123!",
+      "captcha": "1234",
+      "trackingNumber": "trk_987123456"
+    }
+  },
+  {
+    "idx": 7,
+    "method": "POST",
+    "url": "/api/v1/logout",
+    "title": "خروج از سیستم",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {}
+  },
+  {
+    "idx": 8,
+    "method": "GET",
+    "url": "/api/v1/customers/statements",
+    "title": "گردش حساب سپرده گذار",
+    "response": [
+      {
+        "transactionDate": "1403/05/01",
+        "transactionType": "صدور واحد",
+        "comments": "ثبت درخواست صدور اینترنتی",
+        "debitAmount": 0,
+        "creditAmount": 50000000,
+        "customerId": 48201,
+        "branchName": "شعبه مرکزی",
+        "balance": 50000000,
+        "documentId": 100234
+      },
+      {
+        "transactionDate": "1403/05/15",
+        "transactionType": "تقسیم سود ماهانه",
+        "comments": "واریز سود دوره تیرماه",
+        "debitAmount": 0,
+        "creditAmount": 1250000,
+        "customerId": 48201,
+        "branchName": "شعبه مرکزی",
+        "balance": 51250000,
+        "documentId": 100892
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 9,
+    "method": "GET",
+    "url": "/api/v1/customers/orders",
+    "title": "سفارشات سرمایه گذار جاری",
+    "response": {
+      "totalCount": 1,
+      "result": [
+        {
+          "fundName": "صندوق سرمایه‌گذاری امین آشنا ایرانیان",
+          "fundOrderId": 31472702,
+          "customerId": 48201,
+          "orderDate": "1403/05/18",
+          "orderAmount": 50000000,
+          "foStatusName": "تایید شده",
+          "foStatusId": 2,
+          "orderTypeName": "صدور",
+          "orderTypeId": 1,
+          "unitCount": 50,
+          "unitPrice": 1000000
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 10,
+    "method": "GET",
+    "url": "/api/v1/fund/bankAccounts",
+    "title": "حساب های بانکی صندوق",
+    "response": [
+      {
+        "bankAccountId": "1001",
+        "bankId": 1,
+        "bankName": "ملی ایران",
+        "dlId": 201,
+        "baTypeKindId": 1,
+        "baTypeName": "حساب جاری",
+        "accountNumber": "0100238472001",
+        "branchName": "مرکزی"
+      },
+      {
+        "bankAccountId": "1002",
+        "bankId": 2,
+        "bankName": "ملت",
+        "dlId": 202,
+        "baTypeKindId": 2,
+        "baTypeName": "کوتاه مدت",
+        "accountNumber": "4892019384",
+        "branchName": "شعبه ونک"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 11,
+    "method": "GET",
+    "url": "/api/v1/fund/fundIssueTypes",
+    "title": "انواع سرمایه گذاری",
+    "response": [
+      {
+        "fundIssueTypeId": 1,
+        "fundIssueTypeName": "عادی"
+      },
+      {
+        "fundIssueTypeId": 2,
+        "fundIssueTypeName": "از محل تقسیم سود"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 12,
+    "method": "GET",
+    "url": "/api/v1/customers/customerInfo",
+    "title": "اطلاعات سرمایه گذار ( حقیقی ، حقوقی )",
+    "response": {
+      "customerId": 48201,
+      "isLegal": 0,
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "fatherName": "رضا",
+      "nationalCode": "{{nationalCode}}",
+      "birthDate": "1365/08/12",
+      "birthCertificateNumber": "1234",
+      "mobile": "09123456789",
+      "email": "ali.mohammadi@example.com",
+      "address": "تهران، خیابان ولیعصر، بالاتر از میرداماد، پلاک ۱۰۰",
+      "postalCode": "1999912345",
+      "isSejami": true,
+      "bankAccounts": [
+        {
+          "bankAccountId": 12054,
+          "accountNumber": "0105829104008",
+          "baTypeName": "کوتاه مدت",
+          "bankId": 1,
+          "bankName": "ملی ایران",
+          "bankBranch": "مرکزی",
+          "bankBranchCode": "001",
+          "shabaNumber": "IR120170000000105829104008",
+          "isDefault": 1
+        }
+      ],
+      "bourseCodes": [
+        {
+          "code": "علی67891",
+          "bourseTitle": "اوراق بهادار"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 13,
+    "method": "GET",
+    "url": "/api/v2/customers/customerInfo",
+    "title": "اطلاعات سرمایه گذار ( حقیقی ، حقوقی )-v2",
+    "response": {
+      "customerId": 48201,
+      "isLegal": 0,
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "fatherName": "رضا",
+      "nationalCode": "{{nationalCode}}",
+      "birthDate": "1365/08/12",
+      "birthCertificateNumber": "1234",
+      "mobile": "09123456789",
+      "email": "ali.mohammadi@example.com",
+      "address": "تهران، خیابان ولیعصر، بالاتر از میرداماد، پلاک ۱۰۰",
+      "postalCode": "1999912345",
+      "isSejami": true,
+      "bankAccounts": [
+        {
+          "bankAccountId": 12054,
+          "accountNumber": "0105829104008",
+          "baTypeName": "کوتاه مدت",
+          "bankId": 1,
+          "bankName": "ملی ایران",
+          "bankBranch": "مرکزی",
+          "bankBranchCode": "001",
+          "shabaNumber": "IR120170000000105829104008",
+          "isDefault": 1
+        }
+      ],
+      "bourseCodes": [
+        {
+          "code": "علی67891",
+          "bourseTitle": "اوراق بهادار"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 14,
+    "method": "GET",
+    "url": "/api/v1/allCustomerInfo",
+    "title": "سرویس دریافت مشخصات مشتریان صندوق",
+    "response": {
+      "totalCount": 2,
+      "result": [
+        {
+          "customerId": 48201,
+          "customerFullName": "علی محمدی",
+          "nationalCode": "0012345678",
+          "mobile": "09123456789",
+          "customerStatusId": 1
+        },
+        {
+          "customerId": 48202,
+          "customerFullName": "سارا احمدی",
+          "nationalCode": "0098765432",
+          "mobile": "09129876543",
+          "customerStatusId": 1
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 15,
+    "method": "POST",
+    "url": "/api/v1/fund/saveIpo",
+    "title": "ثبت درخواست صدور",
+    "response": {
+      "orderId": 31472702,
+      "trackingNumber": "31472702",
+      "message": "درخواست صدور با موفقیت ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderNumber": "ORD-140305-901",
+      "fundIssueTypeId": 1,
+      "bankAccountId": 1001,
+      "orderAmount": 50000000,
+      "receiptNumber": "REC-98213",
+      "receiptDate": "1403/05/20",
+      "receiptComments": "واریز اینترنتی جهت صدور واحد",
+      "orderPaymentTypeId": 2,
+      "isPortfo": 0,
+      "representativeCode": "REF100"
+    }
+  },
+  {
+    "idx": 16,
+    "method": "POST",
+    "url": "/api/v1/fund/saveIpo",
+    "title": "ثبت درخواست صدور از طریق پرداخت الکترونیک",
+    "response": {
+      "orderId": 31472702,
+      "trackingNumber": "31472702",
+      "message": "درخواست صدور با موفقیت ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderNumber": "ORD-140305-901",
+      "fundIssueTypeId": 1,
+      "bankAccountId": 1001,
+      "orderAmount": 50000000,
+      "receiptNumber": "REC-98213",
+      "receiptDate": "1403/05/20",
+      "receiptComments": "واریز اینترنتی جهت صدور واحد",
+      "orderPaymentTypeId": 2,
+      "isPortfo": 0,
+      "representativeCode": "REF100"
+    }
+  },
+  {
+    "idx": 17,
+    "method": "POST",
+    "url": "/api/v2/fund/saveIpo",
+    "title": "ثبت درخواست صدور با استفاده از کد اعتبار سنجی",
+    "response": {
+      "orderId": 31472703,
+      "status": "REGISTERED",
+      "message": "درخواست صدور با کد اعتبارسنجی ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderNumber": "ORD-140305-902",
+      "fundIssueTypeId": 1,
+      "bankAccountId": 1001,
+      "orderAmount": 50000000,
+      "receiptNumber": "REC-98214",
+      "receiptDate": "1403/05/20",
+      "receiptComments": "صدور با کد تایید",
+      "verificationCode": "4589"
+    }
+  },
+  {
+    "idx": 18,
+    "method": "POST",
+    "url": "/api/v2/fund/saveIpo/verificationCode",
+    "title": "ارسال کد احراز هویت درخواست صدور(پیامک یا ایمیل)",
+    "response": {
+      "message": "کد اعتبارسنجی با موفقیت ارسال شد",
+      "expireSeconds": 120
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "orderAmount": 50000000,
+      "cellPhone": "09123456789"
+    }
+  },
+  {
+    "idx": 19,
+    "method": "PUT",
+    "url": "/api/v1/fund/saveIpo",
+    "title": "ویرایش درخواست صدور",
+    "response": {
+      "orderId": 31472702,
+      "message": "درخواست صدور با موفقیت ویرایش شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472702,
+      "fundOrderNumber": "ORD-140305-901",
+      "fundIssueTypeId": 1,
+      "bankAccountId": 1001,
+      "orderAmount": 60000000,
+      "receiptNumber": "REC-98213",
+      "receiptDate": "1403/05/20",
+      "receiptComments": "ویرایش مبلغ صدور"
+    }
+  },
+  {
+    "idx": 20,
+    "method": "POST",
+    "url": "/api/v1/fund/revokeOrder/verificationCode",
+    "title": "ارسال کد احراز هویت درخواست ابطال(پیامک یا ایمیل)",
+    "response": {
+      "message": "کد اعتبارسنجی درخواست ابطال با موفقیت ارسال گردید",
+      "expireSeconds": 120
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "unitCount": 20,
+      "bankAccountId": 12054
+    }
+  },
+  {
+    "idx": 21,
+    "method": "POST",
+    "url": "/api/v2/fund/revokeOrder/verificationCode",
+    "title": "ارسال کد احراز هویت درخواست ابطال(پیامک یا ایمیل) (V2)",
+    "response": {
+      "message": "کد اعتبارسنجی درخواست ابطال با موفقیت ارسال گردید",
+      "expireSeconds": 120
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "unitCount": 20,
+      "bankAccountId": 12054
+    }
+  },
+  {
+    "idx": 22,
+    "method": "POST",
+    "url": "/api/v1/fund/saveCancelOrder",
+    "title": "ثبت درخواست ابطال",
+    "response": {
+      "orderId": 31472850,
+      "status": "SUBMITTED",
+      "message": "درخواست ابطال با موفقیت ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "unitCount": 20,
+      "bankAccountId": 12054,
+      "comments": "ابطال واحدهای سرمایه‌گذاری",
+      "isPortfo": 0,
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 23,
+    "method": "POST",
+    "url": "/api/v2/fund/saveCancelOrder",
+    "title": "ثبت درخواست ابطال V2-",
+    "response": {
+      "orderId": 31472850,
+      "status": "SUBMITTED",
+      "message": "درخواست ابطال با موفقیت ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "unitCount": 20,
+      "bankAccountId": 12054,
+      "comments": "ابطال واحدهای سرمایه‌گذاری",
+      "isPortfo": 0,
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 24,
+    "method": "PUT",
+    "url": "/api/v2/fund/saveCancelOrder",
+    "title": "ویرایش درخواست ابطال V2-",
+    "response": {
+      "orderId": 31472850,
+      "message": "درخواست ابطال با موفقیت ویرایش شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472850,
+      "unitCount": 25,
+      "bankAccountId": 12054,
+      "comments": "ویرایش تعداد ابطال"
+    }
+  },
+  {
+    "idx": 25,
+    "method": "PUT",
+    "url": "/api/v1/fund/saveCancelOrder",
+    "title": "ویرایش درخواست ابطال",
+    "response": {
+      "orderId": 31472850,
+      "message": "درخواست ابطال با موفقیت ویرایش شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472850,
+      "unitCount": 25,
+      "bankAccountId": 12054,
+      "comments": "ویرایش تعداد ابطال"
+    }
+  },
+  {
+    "idx": 26,
+    "method": "POST",
+    "url": "/api/v1/fund/removeOrder/verificationCode",
+    "title": "سرویس احراز هویت هنگام حذف در خواست های ابطال",
+    "response": {
+      "message": "کد تایید جهت حذف درخواست ارسال شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472850
+    }
+  },
+  {
+    "idx": 27,
+    "method": "GET",
+    "url": "/api/v1/banks",
+    "title": "لیست بانک ها",
+    "response": [
+      {
+        "bankId": 1,
+        "bankName": "بانک ملی ایران"
+      },
+      {
+        "bankId": 2,
+        "bankName": "بانک ملت"
+      },
+      {
+        "bankId": 3,
+        "bankName": "بانک پاسارگاد"
+      },
+      {
+        "bankId": 4,
+        "bankName": "بانک تجارت"
+      },
+      {
+        "bankId": 5,
+        "bankName": "بانک صادرات ایران"
+      },
+      {
+        "bankId": 6,
+        "bankName": "بانک آینده"
+      },
+      {
+        "bankId": 7,
+        "bankName": "بانک سامان"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 28,
+    "method": "GET",
+    "url": "/api/v1/bankAccountTypes",
+    "title": "لیست انواع حساب های بانکی",
+    "response": [
+      {
+        "baTypeKindId": 1,
+        "baTypeName": "جاری"
+      },
+      {
+        "baTypeKindId": 2,
+        "baTypeName": "کوتاه مدت"
+      },
+      {
+        "baTypeKindId": 3,
+        "baTypeName": "بلند مدت"
+      },
+      {
+        "baTypeKindId": 4,
+        "baTypeName": "قرض‌الحسنه پس‌انداز"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 29,
+    "method": "GET",
+    "url": "/api/v1/fund/fundGage",
+    "title": "گزارش وثیقه های سرمایه گزار",
+    "response": [
+      {
+        "gageId": 501,
+        "customerId": 48201,
+        "customerFullName": "علی محمدی",
+        "gageDate": "1403/04/10",
+        "unitCount": 100,
+        "status": "وثیقه شده",
+        "organizationName": "بانک تجارت شعبه مرکزی"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 30,
+    "method": "GET",
+    "url": "/api/v1/fund/cancelledAndGages",
+    "title": "گزارش وثیقه های ثبت شده و آزاد شده سرمایه گذار تا تاریخ روز",
+    "response": [
+      {
+        "gageId": 501,
+        "customerId": 48201,
+        "customerFullName": "علی محمدی",
+        "gageDate": "1403/04/10",
+        "unitCount": 100,
+        "status": "وثیقه شده",
+        "organizationName": "بانک تجارت شعبه مرکزی"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 31,
+    "method": "GET",
+    "url": "/api/v1/customers/epBanks",
+    "title": "لیست بانکهای پرداخت الکترونیکی",
+    "response": [
+      {
+        "bankId": 1,
+        "bankName": "بانک سامان (سپ)",
+        "gatewayUrl": "https://sep.ir/payment",
+        "isActive": 1
+      },
+      {
+        "bankId": 2,
+        "bankName": "بانک پاسارگاد (پپنا)",
+        "gatewayUrl": "https://pep.shaparak.ir",
+        "isActive": 1
+      },
+      {
+        "bankId": 3,
+        "bankName": "به‌پرداخت ملت",
+        "gatewayUrl": "https://bpm.shaparak.ir",
+        "isActive": 1
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 32,
+    "method": "GET",
+    "url": "/api/v1/customers/bankAccounts",
+    "title": "گزارش لیست حساب های بانکی سرمایه گذار",
+    "response": [
+      {
+        "bankAccountId": 12054,
+        "accountNumber": "0105829104008",
+        "baTypeName": "کوتاه مدت",
+        "bankId": 1,
+        "bankName": "بانک ملی ایران",
+        "bankBranch": "مرکزی",
+        "bankBranchCode": "001",
+        "shabaNumber": "IR120170000000105829104008",
+        "isDefault": 1
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 33,
+    "method": "GET",
+    "url": "/api/v1/fundRevokeOrders",
+    "title": "گزارش لیست تمامی درخواست های ابطال صندوق",
+    "response": {
+      "totalCount": 1,
+      "result": [
+        {
+          "fundOrderId": 31472850,
+          "orderDate": "1403/05/19",
+          "unitCount": 20,
+          "unitPrice": 1000000,
+          "orderAmount": 20000000,
+          "foStatusName": "در انتظار تایید",
+          "foStatusId": 1,
+          "customerId": 48201,
+          "customerName": "علی محمدی"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 34,
+    "method": "GET",
+    "url": "/api/v1/branches",
+    "title": "لیست شعب صندوق",
+    "response": [
+      {
+        "branchId": 101,
+        "branchCode": "BR001",
+        "branchName": "شعبه مرکزی تهران",
+        "address": "خیابان مطهری، پلاک ۲۰",
+        "tel": "02188990011"
+      },
+      {
+        "branchId": 102,
+        "branchCode": "BR002",
+        "branchName": "شعبه اصفهان",
+        "address": "خیابان چهارباغ بالا",
+        "tel": "03136600112"
+      },
+      {
+        "branchId": 103,
+        "branchCode": "BR003",
+        "branchName": "شعبه مشهد",
+        "address": "بلوار سجاد",
+        "tel": "05137600113"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 35,
+    "method": "GET",
+    "url": "/api/v1/appusers",
+    "title": "گزارش لیست کاربران صندوق",
+    "response": [
+      {
+        "userId": 1,
+        "userName": "admin",
+        "fullName": "مدیر سیستم",
+        "userRole": "مدیر صندوق",
+        "isActive": 1
+      },
+      {
+        "userId": 2,
+        "userName": "operator1",
+        "fullName": "کارشناس صدور و ابطال",
+        "userRole": "اپراتور",
+        "isActive": 1
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 36,
+    "method": "GET",
+    "url": "/api/v1/fund/fundLicense",
+    "title": "گواهی های معتبر همه سرمایه گذاران",
+    "response": [
+      {
+        "licenseId": 99201,
+        "customerId": 48201,
+        "customerFullName": "علی محمدی",
+        "unitCount": 50,
+        "issueDate": "1403/05/18",
+        "certificateNumber": "CERT-1403-90812",
+        "status": "معتبر"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 37,
+    "method": "GET",
+    "url": "/api/v1/fundOrder",
+    "title": "لیست درخواست ها",
+    "response": {
+      "totalCount": 2,
+      "result": [
+        {
+          "fundOrderId": 31472702,
+          "unitPrice": 1000000,
+          "orderAmount": 50000000,
+          "unitCount": 50,
+          "orderDate": "1403/05/18",
+          "orderTypeName": "صدور",
+          "orderTypeId": 1,
+          "customerAccountNumber": "0105829104008",
+          "customerName": "علی محمدی",
+          "nationalCode": "{{nationalCode}}",
+          "customerId": 48201,
+          "foStatusName": "تایید شده",
+          "foStatusId": 2,
+          "fundOrderNumber": "ORD-140305-901"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 38,
+    "method": "GET",
+    "url": "/api/v1/customers/fundLicenses",
+    "title": "گواهی معتبر سرمایه گذار جاری",
+    "response": [
+      {
+        "licenseId": 99201,
+        "customerId": 48201,
+        "customerFullName": "علی محمدی",
+        "unitCount": 50,
+        "issueDate": "1403/05/18",
+        "certificateNumber": "CERT-1403-90812",
+        "status": "معتبر"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 39,
+    "method": "POST",
+    "url": "/api/v1/user/verificationCode",
+    "title": "ایجاد کد اعتبارسنجی",
+    "response": {
+      "status": "SUCCESS",
+      "message": "کد اعتبارسنجی با موفقیت ارسال شد",
+      "trackingId": "VRF-774921"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}",
+      "mobile": "09123456789"
+    }
+  },
+  {
+    "idx": 40,
+    "method": "POST",
+    "url": "/api/v1/user/create",
+    "title": "ایجاد کاربر سایت",
+    "response": {
+      "siteuserId": 10521,
+      "status": "CREATED",
+      "message": "کاربر با موفقیت ثبت نام شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}",
+      "mobile": "09123456789",
+      "username": "investor_user",
+      "password": "Password@123",
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 41,
+    "method": "GET",
+    "url": "/api/v1/fund/fundInfo",
+    "title": "دریافت اطلاعات مشخصات صندوق",
+    "response": {
+      "fundId": 999,
+      "fundCode": "{{dsCode}}",
+      "fundName": "صندوق سرمایه‌گذاری امین آشنا ایرانیان",
+      "fundTypeName": "صندوق در اوراق بهادار با درآمد ثابت",
+      "managerName": "شرکت کارگزاری سهم آشنا",
+      "guarantorName": "بانک شهر",
+      "auditorName": "موسسه حسابرسی بیات رایان",
+      "custodianName": "موسسه حسابرسی و خدمات مدیریت رهبین",
+      "initialCapital": 100000000000,
+      "navCalcFrequency": "روزانه",
+      "purchaseNav": 1025400,
+      "saleNav": 1020000,
+      "lastNavDate": "1403/05/20",
+      "isEtf": 0
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 42,
+    "method": "PUT",
+    "url": "/api/v1/fund/fundOrder/cancel/",
+    "title": "لغو درخواست صدور و ابطال(حذف)",
+    "response": {
+      "fundOrderId": 31472702,
+      "status": "CANCELLED",
+      "message": "درخواست با موفقیت لغو گردید"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472702,
+      "cancelReason": "انصراف سرمایه‌گذار"
+    }
+  },
+  {
+    "idx": 43,
+    "method": "PUT",
+    "url": "/api/v2/fund/fundOrder/cancel/",
+    "title": "لغو درخواست های صدور و ابطالV2)(حذف",
+    "response": {
+      "fundOrderId": 31472702,
+      "status": "CANCELLED",
+      "message": "درخواست با موفقیت لغو گردید"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472702,
+      "cancelReason": "انصراف سرمایه‌گذار"
+    }
+  },
+  {
+    "idx": 44,
+    "method": "PUT",
+    "url": "/api/v3/fund/fundOrder/cancel/",
+    "title": "لغو درخواست های صدور و ابطالV3)(حذف",
+    "response": {
+      "fundOrderId": 31472702,
+      "status": "CANCELLED",
+      "message": "درخواست با موفقیت لغو گردید"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundOrderId": 31472702,
+      "cancelReason": "انصراف سرمایه‌گذار"
+    }
+  },
+  {
+    "idx": 45,
+    "method": "GET",
+    "url": "/api/v1/mobile/customers/statements",
+    "title": "گردش حساب (موبایل)",
+    "response": [
+      {
+        "transactionDate": "1403/05/01",
+        "transactionTitle": "صدور واحد",
+        "amount": 50000000,
+        "isCredit": true,
+        "balance": 50000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 46,
+    "method": "GET",
+    "url": "/api/v1/fund/customerProfits",
+    "title": "اطلاعات تقسیم سود هر مشتری",
+    "response": [
+      {
+        "profitPeriod": "تیرماه 1403",
+        "profitDate": "1403/05/15",
+        "profitAmount": 1250000,
+        "unitCount": 50,
+        "profitPerUnit": 25000,
+        "paymentStatus": "واریز شده به حساب",
+        "shabaNumber": "IR120170000000105829104008"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 47,
+    "method": "GET",
+    "url": "/api/v2/fund/customerProfits",
+    "title": "اطلاعات تقسیم سود هر مشتری(سود های دوره ای)-v2",
+    "response": [
+      {
+        "profitPeriod": "تیرماه 1403",
+        "profitDate": "1403/05/15",
+        "profitAmount": 1250000,
+        "unitCount": 50,
+        "profitPerUnit": 25000,
+        "paymentStatus": "واریز شده به حساب",
+        "shabaNumber": "IR120170000000105829104008"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 48,
+    "method": "GET",
+    "url": "/api/v1/fund/navInfo",
+    "title": "اطلاعات آخرین NAV صدور و ابطال آماری",
+    "response": {
+      "calcDate": "1403/05/20",
+      "fundCapital": 5000000000000,
+      "purchaseNav": 1025400,
+      "saleNav": 1020000,
+      "fundNavId": 88401,
+      "issuedUnit": 4850000,
+      "revokedUnit": 320000,
+      "statisticNav": 1022700
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 49,
+    "method": "GET",
+    "url": "/api/v1/fund/customerRemains",
+    "title": "اطلاعات مانده سرمایه گذاران",
+    "response": [
+      {
+        "customerId": 48201,
+        "customerName": "علی محمدی",
+        "unitCount": 50,
+        "totalValue": 51000000,
+        "balance": 0
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 50,
+    "method": "GET",
+    "url": "/api/v1/fund/customerAssets",
+    "title": "اطلاعات ارزش دارایی سرمایه گذاران",
+    "response": {
+      "customerId": 48201,
+      "customerName": "علی محمدی",
+      "unitCount": 50,
+      "unitNavPrice": 1020000,
+      "totalAssetValue": 51000000,
+      "lastUpdate": "1403/05/20"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 51,
+    "method": "GET",
+    "url": "/api/v1/fund/balanceInfoList",
+    "title": "گزارش اطلاعات ترازنامه",
+    "response": {
+      "fundId": 999,
+      "fundName": "صندوق سرمایه‌گذاری امین آشنا ایرانیان",
+      "yearName": "1403",
+      "yearId": 1403,
+      "profit": 45000000000,
+      "totalAsset": 5120000000000,
+      "totalAssetProfit": 48000000000,
+      "balanceDifference": 0
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 52,
+    "method": "GET",
+    "url": "/api/v1/fund/generalLedgers",
+    "title": "لیست حساب های کل",
+    "response": [
+      {
+        "code": "101",
+        "title": "موجودی نقد و بانک",
+        "debit": 25000000000,
+        "credit": 5000000000,
+        "balance": 20000000000
+      },
+      {
+        "code": "102",
+        "title": "سرمایه‌گذاری در اوراق مشارکت",
+        "debit": 4000000000000,
+        "credit": 0,
+        "balance": 4000000000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 53,
+    "method": "GET",
+    "url": "/api/v1/fund/subsidiaryLedgers",
+    "title": "لیست حساب های معین",
+    "response": [
+      {
+        "code": "101",
+        "title": "موجودی نقد و بانک",
+        "debit": 25000000000,
+        "credit": 5000000000,
+        "balance": 20000000000
+      },
+      {
+        "code": "102",
+        "title": "سرمایه‌گذاری در اوراق مشارکت",
+        "debit": 4000000000000,
+        "credit": 0,
+        "balance": 4000000000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 54,
+    "method": "GET",
+    "url": "/api/v1/fund/detailLedgerList",
+    "title": "لیست حساب های تفصیل",
+    "response": [
+      {
+        "code": "101",
+        "title": "موجودی نقد و بانک",
+        "debit": 25000000000,
+        "credit": 5000000000,
+        "balance": 20000000000
+      },
+      {
+        "code": "102",
+        "title": "سرمایه‌گذاری در اوراق مشارکت",
+        "debit": 4000000000000,
+        "credit": 0,
+        "balance": 4000000000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 55,
+    "method": "GET",
+    "url": "/api/v1/receipts",
+    "title": "لیست دریافت ها",
+    "response": [
+      {
+        "receiptId": 701,
+        "date": "1403/05/18",
+        "amount": 50000000,
+        "customerName": "علی محمدی",
+        "bankName": "ملی ایران",
+        "status": "تایید شده"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 56,
+    "method": "GET",
+    "url": "/api/v1/paymentList",
+    "title": "لیست پرداخت ها",
+    "response": [
+      {
+        "paymentId": 801,
+        "date": "1403/05/19",
+        "amount": 20000000,
+        "customerName": "علی محمدی",
+        "bankName": "ملی ایران",
+        "status": "پرداخت شده"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 57,
+    "method": "GET",
+    "url": "/api/v1/fund/bond/portfolio",
+    "title": "وضعیت سبد مشارکت",
+    "response": {
+      "totalValue": 5120000000000,
+      "composition": [
+        {
+          "assetType": "اوراق بهادار با درآمد ثابت",
+          "value": 3584000000000,
+          "percentage": 70.0
+        },
+        {
+          "assetType": "سپرده‌های بانکی",
+          "value": 1024000000000,
+          "percentage": 20.0
+        },
+        {
+          "assetType": "سهام و حق تقدم سهام",
+          "value": 512000000000,
+          "percentage": 10.0
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 58,
+    "method": "GET",
+    "url": "/api/v1/fund/portfolioStatus",
+    "title": "گزارش وضعیت سبد",
+    "response": {
+      "totalValue": 5120000000000,
+      "composition": [
+        {
+          "assetType": "اوراق بهادار با درآمد ثابت",
+          "value": 3584000000000,
+          "percentage": 70.0
+        },
+        {
+          "assetType": "سپرده‌های بانکی",
+          "value": 1024000000000,
+          "percentage": 20.0
+        },
+        {
+          "assetType": "سهام و حق تقدم سهام",
+          "value": 512000000000,
+          "percentage": 10.0
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 59,
+    "method": "GET",
+    "url": "/api/v2/fund/portfolio",
+    "title": "موجودی اوراق بهادار – v2",
+    "response": [
+      {
+        "symbol": "اخزا902",
+        "name": "اسناد خزانه اسلامی-مرابحه902",
+        "count": 10000,
+        "price": 850000,
+        "totalValue": 8500000000
+      },
+      {
+        "symbol": "فولاد",
+        "name": "فولاد مبارکه اصفهان",
+        "count": 50000,
+        "price": 5200,
+        "totalValue": 260000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 60,
+    "method": "GET",
+    "url": "/api/v1/fund/order/minPurchaseNav",
+    "title": "سرویس مبلغ حدودی NAV صدور و آخرین روز NAV",
+    "response": {
+      "minPurchaseNav": 1025400,
+      "lastNav": 1020000,
+      "lastNavDate": "1403/05/20"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 61,
+    "method": "GET",
+    "url": "/api/v1/general/today",
+    "title": "سرویس تاریخ روز",
+    "response": {
+      "todayDate": "1403/05/22",
+      "gregorianDate": "2024-08-12",
+      "time": "14:30:00",
+      "isHoliday": false
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 62,
+    "method": "GET",
+    "url": "/api/v1/fund/documents",
+    "title": "اطلاعات امیدنامه و اساس نامه",
+    "response": {
+      "documents": [
+        {
+          "docId": 1,
+          "title": "امیدنامه صندوق",
+          "typeId": 1,
+          "fileName": "omidnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/omidnameh.pdf"
+        },
+        {
+          "docId": 2,
+          "title": "اساسنامه صندوق",
+          "typeId": 2,
+          "fileName": "asasnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/asasnameh.pdf"
+        }
+      ],
+      "isExist": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 63,
+    "method": "GET",
+    "url": "/api/v1/mobile/pdfs/",
+    "title": "دریافت فایل امیدنامه و اساسنامه(بر اساس نام فایل)",
+    "response": {
+      "documents": [
+        {
+          "docId": 1,
+          "title": "امیدنامه صندوق",
+          "typeId": 1,
+          "fileName": "omidnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/omidnameh.pdf"
+        },
+        {
+          "docId": 2,
+          "title": "اساسنامه صندوق",
+          "typeId": 2,
+          "fileName": "asasnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/asasnameh.pdf"
+        }
+      ],
+      "isExist": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 64,
+    "method": "GET",
+    "url": "/api/v1/mobile/pdfs",
+    "title": "سرویس خواندن فایل امیدنامه و اساسنامه (بر اساس TypeId)",
+    "response": {
+      "documents": [
+        {
+          "docId": 1,
+          "title": "امیدنامه صندوق",
+          "typeId": 1,
+          "fileName": "omidnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/omidnameh.pdf"
+        },
+        {
+          "docId": 2,
+          "title": "اساسنامه صندوق",
+          "typeId": 2,
+          "fileName": "asasnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/asasnameh.pdf"
+        }
+      ],
+      "isExist": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 65,
+    "method": "GET",
+    "url": "/api/v1/mobile/isExistPdf",
+    "title": "سرویس کنترل وجود فایل (بر اساس TypeId)",
+    "response": {
+      "documents": [
+        {
+          "docId": 1,
+          "title": "امیدنامه صندوق",
+          "typeId": 1,
+          "fileName": "omidnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/omidnameh.pdf"
+        },
+        {
+          "docId": 2,
+          "title": "اساسنامه صندوق",
+          "typeId": 2,
+          "fileName": "asasnameh.pdf",
+          "fileUrl": "/api/v1/mobile/pdfs/asasnameh.pdf"
+        }
+      ],
+      "isExist": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 66,
+    "method": "GET",
+    "url": "/api/v1/fund/investmentManagers",
+    "title": "اطلاعات مدیران سرمایه گذاری",
+    "response": [
+      {
+        "symbol": "اخزا902",
+        "name": "اسناد خزانه اسلامی-مرابحه902",
+        "count": 10000,
+        "price": 850000,
+        "totalValue": 8500000000
+      },
+      {
+        "symbol": "فولاد",
+        "name": "فولاد مبارکه اصفهان",
+        "count": 50000,
+        "price": 5200,
+        "totalValue": 260000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 67,
+    "method": "GET",
+    "url": "/api/v1/fund/portfolio",
+    "title": "موجودی اوراق بهادار",
+    "response": [
+      {
+        "symbol": "اخزا902",
+        "name": "اسناد خزانه اسلامی-مرابحه902",
+        "count": 10000,
+        "price": 850000,
+        "totalValue": 8500000000
+      },
+      {
+        "symbol": "فولاد",
+        "name": "فولاد مبارکه اصفهان",
+        "count": 50000,
+        "price": 5200,
+        "totalValue": 260000000
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 68,
+    "method": "GET",
+    "url": "/api/v1/listCustomers",
+    "title": "لیست مشتریان",
+    "response": {
+      "totalCount": 1,
+      "result": [
+        {
+          "customerId": 48201,
+          "customerName": "علی محمدی",
+          "nationalCode": "{{nationalCode}}",
+          "mobile": "09123456789",
+          "bourseCode": "علی67891"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 69,
+    "method": "POST",
+    "url": "/api/v1/user/new/verificationCode",
+    "title": "ارسال کد اعتبارسنجی جهت ثبت سرمایه گذار جدید(راستی آزمایی کد اعتبارسنجی)",
+    "response": {
+      "valid": true,
+      "message": "کد اعتبارسنجی معتبر است"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "cellPhone": "09123456789",
+      "nationalCode": "{{nationalCode}}",
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 70,
+    "method": "PUT",
+    "url": "/api/v1/customers/isProfitIssue/",
+    "title": "ویرایش مجوز صدور از محل تقسیم سود",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "isProfitIssue": 1,
+      "profitIssuePercent": 100
+    }
+  },
+  {
+    "idx": 71,
+    "method": "PUT",
+    "url": "/api/v1/customers/profitIssue",
+    "title": "ویرایش درصد سرمایه گذاری مجدد از محل تقسیم سود",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "isProfitIssue": 1,
+      "profitIssuePercent": 100
+    }
+  },
+  {
+    "idx": 72,
+    "method": "PUT",
+    "url": "/api/v1/fund/customerStatus",
+    "title": "تغییر وضعیت سرمایه گذار",
+    "response": {
+      "customerId": 48201,
+      "statusId": 1,
+      "message": "وضعیت سرمایه‌گذار تغییر یافت"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "statusId": 1,
+      "description": "فعال‌سازی مجدد حساب"
+    }
+  },
+  {
+    "idx": 73,
+    "method": "POST",
+    "url": "/api/v2/sejam/profiles/kycOtp",
+    "title": "ارسال کد اعتبارسنجی به سرمایه گذار سجامی",
+    "response": {
+      "status": "SUCCESS",
+      "message": "کد اعتبارسنجی با موفقیت به شماره سرمایه‌گذار سجامی ارسال شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}"
+    }
+  },
+  {
+    "idx": 74,
+    "method": "GET",
+    "url": "/api/v1/sejam/profiles/isSejami",
+    "title": "کنترل سجامی بودن یک کدملی",
+    "response": {
+      "isSejami": true,
+      "nationalCode": "{{nationalCode}}",
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "fatherName": "رضا",
+      "cellPhone": "09123456789",
+      "email": "ali.mohammadi@example.com",
+      "status": "APPROVED",
+      "kycStatus": "VERIFIED"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 75,
+    "method": "GET",
+    "url": "/api/v1/fund/branchOrderRestriction",
+    "title": "سقف صدور روزانه شعب اینترنتی",
+    "response": {
+      "dailyRestrictionAmount": 10000000000,
+      "allowIssue": true,
+      "allowRevoke": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 76,
+    "method": "PUT",
+    "url": "/api/v1/fund/nav/",
+    "title": "باز و بسته کردنمحاسبه Nav",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "state": 1,
+      "date": "1403/05/20"
+    }
+  },
+  {
+    "idx": 77,
+    "method": "PUT",
+    "url": "/api/v1/fund/etf/lightNav/",
+    "title": "باز و بسته کردن محاسبهNAV لحظه ای صندوق های ETF",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "state": 1,
+      "date": "1403/05/20"
+    }
+  },
+  {
+    "idx": 78,
+    "method": "PUT",
+    "url": "/api/v1/permissions/state",
+    "title": "باز و بسته کردن دسترسی ها",
+    "response": {
+      "dailyRestrictionAmount": 10000000000,
+      "allowIssue": true,
+      "allowRevoke": true
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 79,
+    "method": "GET",
+    "url": "/api/v1/fund/order/estimateRevokeAmount",
+    "title": "بازگردانی مبلغ ابطال براساس تعداد ابطال",
+    "response": {
+      "unitCount": 50,
+      "unitPrice": 1020000,
+      "estimatedAmount": 51000000,
+      "commissionFee": 150000
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 80,
+    "method": "GET",
+    "url": "/api/v1/fund/order/estimateUnits",
+    "title": "بازگردانی تعداد واحدهای صدور بر اساس مبلغ صدور",
+    "response": {
+      "unitCount": 50,
+      "unitPrice": 1020000,
+      "estimatedAmount": 51000000,
+      "commissionFee": 150000
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 81,
+    "method": "POST",
+    "url": "/api/v1/fund/saveLicenseRequest",
+    "title": "درخواست اصل گواهی معتبر",
+    "response": {
+      "requestId": 4012,
+      "status": "SUBMITTED",
+      "message": "درخواست صدور اصل گواهی ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "unitCount": 50,
+      "deliveryType": "حضوری در شعبه"
+    }
+  },
+  {
+    "idx": 82,
+    "method": "POST",
+    "url": "/api/v1/siteuser/createWithoutVerification",
+    "title": "ثبت نام کاربر سایت بدون دریافت verificationCode",
+    "response": {
+      "siteuserId": 10521,
+      "status": "CREATED"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}",
+      "username": "investor_user",
+      "password": "Password@123"
+    }
+  },
+  {
+    "idx": 83,
+    "method": "GET",
+    "url": "/api/v1/fund/fundGage/list",
+    "title": "لیست وثیقه ها",
+    "response": [
+      {
+        "gageId": 501,
+        "unitCount": 100,
+        "status": "ACTIVE",
+        "organization": "بانک پاسارگاد"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 84,
+    "method": "POST",
+    "url": "/api/v1/fund/sendEmail",
+    "title": "ثبت آدرس ایمیل",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "email": "ali.mohammadi@example.com"
+    }
+  },
+  {
+    "idx": 85,
+    "method": "PUT",
+    "url": "/api/v1/fund/fundBaseInfo",
+    "title": "ویرایش تنظیم مشخصات صندوق",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "fundId": 999,
+      "fundName": "صندوق سرمایه‌گذاری امین آشنا ایرانیان",
+      "minOrderUnits": 1,
+      "maxOrderUnits": 100000
+    }
+  },
+  {
+    "idx": 86,
+    "method": "GET",
+    "url": "/api/v1/fund/instrumentClosed",
+    "title": "گزارش گیری از نرخ نمادها",
+    "response": [
+      {
+        "instrumentCode": "IRO1TAMN0001",
+        "name": "صندوق تامین سرمایه نوین",
+        "lastPrice": 10500,
+        "status": "OPEN"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 87,
+    "method": "GET",
+    "url": "/api/v1/fund/multipleMarketing/funds",
+    "title": "لیست صندوق های چندسهمی",
+    "response": [
+      {
+        "instrumentCode": "IRO1TAMN0001",
+        "name": "صندوق تامین سرمایه نوین",
+        "lastPrice": 10500,
+        "status": "OPEN"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 88,
+    "method": "OPTION",
+    "url": "/api/v1/fund/portfolioStatus",
+    "title": "انتخاب وضعیت سبد",
+    "response": {
+      "filters": [
+        {
+          "label": "کد صندوق",
+          "dataType": "NUMBER",
+          "mandatory": true,
+          "filterPosition": 1
+        },
+        {
+          "label": "تاریخ شروع",
+          "dataType": "DATE",
+          "mandatory": true,
+          "filterPosition": 2
+        },
+        {
+          "label": "تاریخ پایان",
+          "dataType": "DATE",
+          "mandatory": true,
+          "filterPosition": 3
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 89,
+    "method": "OPTION",
+    "url": "/api/v1/fund/bond/portfolio",
+    "title": "انتخاب سرویس انواع سبد",
+    "response": {
+      "filters": [
+        {
+          "label": "کد صندوق",
+          "dataType": "NUMBER",
+          "mandatory": true,
+          "filterPosition": 1
+        },
+        {
+          "label": "تاریخ شروع",
+          "dataType": "DATE",
+          "mandatory": true,
+          "filterPosition": 2
+        },
+        {
+          "label": "تاریخ پایان",
+          "dataType": "DATE",
+          "mandatory": true,
+          "filterPosition": 3
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 90,
+    "method": "POST",
+    "url": "/api/v1/user/new/verificationCode",
+    "title": "راستی آزمایی کد اعتبار سنجی",
+    "response": {
+      "valid": true,
+      "message": "کد اعتبارسنجی معتبر است"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "cellPhone": "09123456789",
+      "nationalCode": "{{nationalCode}}",
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 91,
+    "method": "POST",
+    "url": "/api/v2/fund/sejam/pullCustomerInfoAndCreateUser",
+    "title": "ثبت نامسرمایه گذار سجامی",
+    "response": {
+      "customerId": 48201,
+      "status": "SUCCESS",
+      "message": "اطلاعات سجامی سرمایه‌گذار با موفقیت دریافت و ثبت گردید",
+      "fullName": "علی محمدی"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}",
+      "otp": "12345"
+    }
+  },
+  {
+    "idx": 92,
+    "method": "POST",
+    "url": "/api/v2/fund/sejam/pullCustomerInfo",
+    "title": "دریافت و ثبت اطلاعات سرمایه گذار سجامی",
+    "response": {
+      "customerId": 48201,
+      "status": "SUCCESS",
+      "message": "اطلاعات سجامی سرمایه‌گذار با موفقیت دریافت و ثبت گردید",
+      "fullName": "علی محمدی"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "nationalCode": "{{nationalCode}}",
+      "otp": "12345"
+    }
+  },
+  {
+    "idx": 93,
+    "method": "GET",
+    "url": "/api/v1/fund/fundVersionInformation",
+    "title": "سرویس گزارش گیری تغییرات نسخه",
+    "response": {
+      "currentVersion": "2.2.0",
+      "releaseDate": "1403/05/22",
+      "changeLog": "نسخه جدید سامانه صندوق‌های سرمایه‌گذاری رایان هم‌افزا"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 94,
+    "method": "PUT",
+    "url": "/api/v1/fund/fundVersionInformation",
+    "title": "ثبت و ویرایش تغییرات نسخه",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "versionCode": "2.2.0",
+      "changeLog": "به‌روزرسانی وب‌سرویس‌های سجام و گزارشات ترازنامه"
+    }
+  },
+  {
+    "idx": 95,
+    "method": "GET",
+    "url": "/api/v1/siteuser/log",
+    "title": "گزارش فعالیت ورود و خروج کاربران در همراه صندوق",
+    "response": [
+      {
+        "logId": 901,
+        "siteuserId": 10521,
+        "action": "LOGIN",
+        "loginDate": "1403/05/20 10:15:20",
+        "ip": "192.168.1.50",
+        "status": "موفق"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 96,
+    "method": "GET",
+    "url": "/api/v1/fund/customerExistsByNationalCode",
+    "title": "جست وجوی کد ملی در صندوق",
+    "response": {
+      "exists": true,
+      "customerId": 48201,
+      "customerName": "علی محمدی"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 97,
+    "method": "GET",
+    "url": "/api/v1/fund/customerExists",
+    "title": "جست وجوی کد ملی/شناسه ملی/کد اتباع در صندوق",
+    "response": {
+      "exists": true,
+      "customerId": 48201,
+      "customerName": "علی محمدی"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 98,
+    "method": "GET",
+    "url": "/api/v1/bankWebService/accountInfo/authentication",
+    "title": "اطلاعات مشتری- سرویس های کنترلی بانک آینده",
+    "response": {
+      "isOwner": true,
+      "accountNumber": "0201827364009",
+      "accountHolderName": "علی محمدی"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 99,
+    "method": "POST",
+    "url": "/api/v1/bankWebService/authenticate",
+    "title": "ارسال کد اعتبارسنجی -بانک آینده",
+    "response": {
+      "token": "ayandeh_bank_token_99182",
+      "status": "AUTHENTICATED"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "accountNumber": "0201827364009",
+      "nationalCode": "{{nationalCode}}"
+    }
+  },
+  {
+    "idx": 100,
+    "method": "GET",
+    "url": "/api/v1/fund/efficiencyCalculator",
+    "title": "سرویس ماشین حساب بازدهی",
+    "response": {
+      "investmentAmount": 100000000,
+      "durationMonths": 12,
+      "annualYieldPercentage": 27.5,
+      "totalProfit": 27500000,
+      "monthlyProfit": 2291666,
+      "totalReturnedAmount": 127500000
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 101,
+    "method": "GET",
+    "url": "/api/v1/fund/statisticsFundOrders",
+    "title": "سرویس گزارش آمار صدور و ابطال به صورت روزانه",
+    "response": {
+      "reportDate": "1403/05/20",
+      "totalIssueAmount": 12500000000,
+      "totalIssueUnits": 12200,
+      "totalRevokeAmount": 4500000000,
+      "totalRevokeUnits": 4400,
+      "netInflow": 8000000000
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 102,
+    "method": "GET",
+    "url": "/api/v1/fund/appliedProfit",
+    "title": "سرویس مبلغ سود واریزی ماهانه",
+    "response": {
+      "monthlyProfitRate": 2.29,
+      "annualizedRate": 27.5,
+      "payableProfitAmount": 1250000
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 103,
+    "method": "GET",
+    "url": "/api/v1/fund/statisticInfo",
+    "title": "اطلاعات آماری صندوق",
+    "response": {
+      "fundSize": 5120000000000,
+      "activeInvestorsCount": 12850,
+      "navPerUnit": 1025400,
+      "beta": 0.05,
+      "sharpeRatio": 1.82
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 104,
+    "method": "PUT",
+    "url": "/api/v1/fund/xmlChecksum",
+    "title": "سرویس اصلاح checksum در xml صندوق ها",
+    "response": {
+      "status": "SUCCESS",
+      "message": "چک‌سام فایل‌های XML با موفقیت اصلاح شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "fundId": 999,
+      "action": "CORRECT_CHECKSUM"
+    }
+  },
+  {
+    "idx": 105,
+    "method": "GET",
+    "url": "/api/v2/fund/bankAccounts",
+    "title": "حساب های بانکی صندوق",
+    "response": [
+      {
+        "bankAccountId": "2001",
+        "bankId": 1,
+        "bankName": "ملی ایران",
+        "accountNumber": "0100238472001",
+        "shabaNumber": "IR880170000000100238472001",
+        "isDefault": 1
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 106,
+    "method": "GET",
+    "url": "/api/v1/fund/filterFundOrder",
+    "title": "سرویس اطلاعات صدور و ابطال بازارگردان صندوق های etf",
+    "response": {
+      "totalCount": 1,
+      "result": [
+        {
+          "fundOrderId": 31472702,
+          "orderDate": "1403/05/18",
+          "orderTypeName": "صدور",
+          "orderAmount": 50000000,
+          "customerName": "علی محمدی",
+          "status": "تایید شده"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 107,
+    "method": "GET",
+    "url": "/api/v1/fund/filterFundOrder",
+    "title": "فیلتر لیست درخواستهای صندوق",
+    "response": {
+      "totalCount": 1,
+      "result": [
+        {
+          "fundOrderId": 31472702,
+          "orderDate": "1403/05/18",
+          "orderTypeName": "صدور",
+          "orderAmount": 50000000,
+          "customerName": "علی محمدی",
+          "status": "تایید شده"
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 108,
+    "method": "PUT",
+    "url": "/api/v1/fund/vouchers",
+    "title": "سرویس باز و بسته کردن سند به صورت دستی",
+    "response": true,
+    "errorResponse": null,
+    "reqBody": {
+      "voucherId": 90123,
+      "state": "LOCKED"
+    }
+  },
+  {
+    "idx": 109,
+    "method": "GET",
+    "url": "/api/v1/fund/getQuestion",
+    "title": "مدیریت پیامهای کاربر همراه صندوق و سایت - خواندن پاسخ از صندوق",
+    "response": [
+      {
+        "messageId": 451,
+        "date": "1403/05/18",
+        "title": "سوال در خصوص زمان واریز سود",
+        "question": "با سلام، سود دوره مرداد ماه چه تاریخی واریز خواهد شد؟",
+        "answer": "با سلام، سود دوره مرداد ماه در تاریخ اول شهریور ماه واریز می‌گردد.",
+        "status": "پاسخ داده شده"
+      }
+    ],
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 110,
+    "method": "POST",
+    "url": "/api/v1/fund/saveQuestion",
+    "title": "مدیریت پیامهای کاربر همراه صندوق و سایت - ثبت سوال  صندوق",
+    "response": {
+      "messageId": 451,
+      "status": "SUBMITTED",
+      "message": "پیام شما با موفقیت ثبت شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "title": "سوال در خصوص زمان واریز سود",
+      "content": "با سلام، سود دوره مرداد ماه چه تاریخی واریز خواهد شد؟"
+    }
+  },
+  {
+    "idx": 111,
+    "method": "POST",
+    "url": "/api/v1/user/new/verificationCode/validate",
+    "title": "بررسی صحت کد اعتبارسنجی و شماره موبایل مربوطه",
+    "response": {
+      "valid": true,
+      "message": "کد اعتبارسنجی معتبر است"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "cellPhone": "09123456789",
+      "nationalCode": "{{nationalCode}}",
+      "verificationCode": "1234"
+    }
+  },
+  {
+    "idx": 112,
+    "method": "PUT",
+    "url": "/api/v1/client/saveCustomer",
+    "title": "ویرایش سرمایه گذاران",
+    "response": {
+      "status": "SUCCESS",
+      "message": "مشخصات سرمایه‌گذار با موفقیت به‌روزرسانی شد"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "customerId": 48201,
+      "email": "new.email@example.com",
+      "cellPhone": "09123456789"
+    }
+  },
+  {
+    "idx": 113,
+    "method": "GET",
+    "url": "/api/v2/fund/compositionAssets",
+    "title": "سرویس ترکیب دارایی های صندوق-V2",
+    "response": {
+      "date": "1403/05/20",
+      "totalAssetValue": 5120000000000,
+      "assetCategories": [
+        {
+          "categoryName": "اوراق با درآمد ثابت و مرابحه",
+          "sharePercentage": 72.5,
+          "marketValue": 3712000000000
+        },
+        {
+          "categoryName": "سپرده و گواهی سپرده بانکی",
+          "sharePercentage": 19.5,
+          "marketValue": 998400000000
+        },
+        {
+          "categoryName": "سهام پذیرفته شده در بورس",
+          "sharePercentage": 8.0,
+          "marketValue": 409600000000
+        }
+      ]
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 114,
+    "method": "POST",
+    "url": "/api/v1/customers/callBankService",
+    "title": "پیاده سازی روش توکن درگاه بانک پاسارگاد",
+    "response": {
+      "token": "pep_token_889217340",
+      "gatewayUrl": "https://pep.shaparak.ir/gateway.payment"
+    },
+    "errorResponse": null,
+    "reqBody": {
+      "bankId": 3,
+      "amount": 50000000,
+      "redirectUrl": "https://fund.irbroker.com/callback"
+    }
+  },
+  {
+    "idx": 115,
+    "method": "GET",
+    "url": "/api/v1/sejam/profiles/kycOtpOrProfiling",
+    "title": "نمایش اطلاعات سجامی سرمایه گذار",
+    "response": {
+      "isSejami": true,
+      "nationalCode": "{{nationalCode}}",
+      "firstName": "علی",
+      "lastName": "محمدی",
+      "fatherName": "رضا",
+      "cellPhone": "09123456789",
+      "email": "ali.mohammadi@example.com",
+      "status": "APPROVED",
+      "kycStatus": "VERIFIED"
+    },
+    "errorResponse": null,
+    "reqBody": null
+  },
+  {
+    "idx": 121,
+    "method": "GET",
+    "url": "/api/v1/fund/redeemableCertificates",
+    "title": "استعلام گواهی‌های قابل ابطال",
+    "response": {
+      "customerId": 48201,
+      "certificates": [
+        {
+          "certificateId": "CERT-1001",
+          "issueDate": "1402/05/10",
+          "unitCount": 100,
+          "unitPrice": 1020000,
+          "isRedeemable": true,
+          "lockDate": null,
+          "message": "قابلیت ابطال دارد"
+        },
+        {
+          "certificateId": "CERT-1002",
+          "issueDate": "1403/01/15",
+          "unitCount": 50,
+          "unitPrice": 1050000,
+          "isRedeemable": false,
+          "lockDate": "1403/06/15",
+          "message": "تا تاریخ مذکور در وضعیت قفل است"
+        }
+      ]
+    },
+    "errorResponse": {
+      "errorCode": 404,
+      "errorDescription": "هیچ گواهی قابل ابطالی برای این کاربر یافت نشد"
+    },
+    "reqBody": null
+  }
+]

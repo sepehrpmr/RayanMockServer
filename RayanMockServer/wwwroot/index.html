@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Mock API Server & Swagger Generator | رایان هم‌افزا</title>
+    <!-- Vazirmatn Persian Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #0ea5e9;
+            --bg-body: #0b0f19;
+            --bg-card: #111827;
+            --bg-card-hover: #1e293b;
+            --border-color: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --get-color: #10b981;
+            --post-color: #3b82f6;
+            --put-color: #f59e0b;
+            --delete-color: #ef4444;
+            --options-color: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* Navbar & Header */
+        .app-navbar {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Main Table & Card Container */
+        .content-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        /* Method Badges */
+        .badge-method {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.78rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            text-align: center;
+            min-width: 68px;
+        }
+        .badge-GET { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-POST { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-PUT { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-DELETE { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-OPTIONS { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+
+        /* Custom Table */
+        .table-custom {
+            margin-bottom: 0;
+            color: var(--text-main);
+        }
+        .table-custom thead th {
+            background-color: rgba(31, 41, 55, 0.7);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 16px;
+        }
+        .table-custom tbody td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 16px;
+            vertical-align: middle;
+            background-color: transparent;
+        }
+        .table-custom tbody tr:hover td {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Form Controls */
+        .form-control, .form-select {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            color: #f3f4f6;
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #1f2937;
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+        }
+
+        /* Modals */
+        .modal-content {
+            background-color: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            color: var(--text-main);
+        }
+        .modal-header, .modal-footer {
+            border-color: var(--border-color);
+            padding: 18px 24px;
+        }
+
+        /* Switch toggle */
+        .form-check-input:checked {
+            background-color: var(--get-color);
+            border-color: var(--get-color);
+        }
+
+        /* Swagger Button Gradient */
+        .btn-swagger {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 18px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+        }
+        .btn-swagger:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Filter Pills */
+        .filter-btn {
+            border-radius: 10px;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            background: #1f2937;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .url-pill {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            direction: ltr;
+            text-align: left;
+            display: inline-block;
+        }
+
+        pre.json-view {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 14px;
+            color: #58a6ff;
+            max-height: 380px;
+            overflow: auto;
+            direction: ltr;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <nav class="app-navbar py-3">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="logo-box">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0 fw-bold text-white">سامانه ماک سرور داینامیک صندوق رایان هم‌افزا</h5>
+                        <small class="text-muted">Dynamic Mock API Server & Swagger Generator (.NET 8 + EF Core)</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <button class="btn btn-outline-info rounded-3 px-3 py-2" onclick="openVariablesModal()">
+                        <i class="fa-solid fa-code me-1"></i> متغیرهای سراسری
+                    </button>
+                    <button class="btn btn-outline-light rounded-3 px-3 py-2" onclick="openImportModal()">
+                        <i class="fa-solid fa-file-import me-1"></i> ایمپورت دسته‌ای JSON
+                    </button>
+                    <button class="btn btn-primary rounded-3 px-3 py-2" onclick="openEndpointModal()">
+                        <i class="fa-solid fa-plus me-1"></i> افزودن API جدید
+                    </button>
+                    <a href="/swagger" target="_blank" class="btn btn-swagger">
+                        <i class="fa-solid fa-bolt me-1"></i> مستندات Swagger
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid px-4 py-4">
+
+        <!-- Stats Overview Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted d-block mb-1">کل وب‌سرویس‌ها</span>
+                        <h3 class="fw-bold mb-0 text-white" id="statTotal">--</h3>
+                    </div>
+                    <div class="stat-icon bg-primary bg-opacity-25 text-primary">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted d-block mb-1">سرویس‌های فعال</span>
+                        <h3 class="fw-bold mb-0 text-success" id="statActive">--</h3>
+                    </div>
+                    <div class="stat-icon bg-success bg-opacity-25 text-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted d-block mb-1">دسته‌بندی‌های Swagger</span>
+                        <h3 class="fw-bold mb-0 text-info" id="statCategories">--</h3>
+                    </div>
+                    <div class="stat-icon bg-info bg-opacity-25 text-info">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted d-block mb-1">شبیه‌سازی خطا (Error Mock)</span>
+                        <h3 class="fw-bold mb-0 text-warning" id="statErrors">فعال</h3>
+                    </div>
+                    <div class="stat-icon bg-warning bg-opacity-25 text-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter & Search Section -->
+        <div class="content-card p-3 mb-4">
+            <div class="row g-3 align-items-center">
+                <!-- Search Box -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-muted">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="جستجو در عنوان فارسی یا مسیر URL..." onkeyup="filterEndpoints()">
+                    </div>
+                </div>
+
+                <!-- Method Filter Buttons -->
+                <div class="col-lg-5 col-md-6">
+                    <div class="d-flex align-items-center gap-1 flex-wrap" id="methodFilters">
+                        <button class="filter-btn active" data-method="ALL" onclick="setMethodFilter('ALL')">همه</button>
+                        <button class="filter-btn" data-method="GET" onclick="setMethodFilter('GET')">GET</button>
+                        <button class="filter-btn" data-method="POST" onclick="setMethodFilter('POST')">POST</button>
+                        <button class="filter-btn" data-method="PUT" onclick="setMethodFilter('PUT')">PUT</button>
+                        <button class="filter-btn" data-method="DELETE" onclick="setMethodFilter('DELETE')">DELETE</button>
+                        <button class="filter-btn" data-method="OPTIONS" onclick="setMethodFilter('OPTIONS')">OPTIONS</button>
+                    </div>
+                </div>
+
+                <!-- Category Filter Dropdown -->
+                <div class="col-lg-3 col-md-12">
+                    <select id="categorySelect" class="form-select" onchange="filterEndpoints()">
+                        <option value="ALL">همه دسته‌بندی‌ها</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Endpoints Table Card -->
+        <div class="content-card overflow-hidden">
+            <div class="p-3 border-bottom border-dark d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-white">
+                    <i class="fa-solid fa-list-check me-2 text-primary"></i> فهرست وب‌سرویس‌های ماک (<span id="filteredCount">0</span> مورد)
+                </span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="loadEndpoints()">
+                    <i class="fa-solid fa-arrows-rotate me-1"></i> تازه‌سازی
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-custom align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">ردیف</th>
+                            <th style="width: 100px;">متد</th>
+                            <th>آدرس مسیر سرویس (URL Path)</th>
+                            <th>عنوان وب‌سرویس</th>
+                            <th>دسته‌بندی</th>
+                            <th style="width: 100px;" class="text-center">وضعیت</th>
+                            <th style="width: 170px;" class="text-center">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="endpointsTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary spinner-border-sm me-2" role="status"></div>
+                                در حال بارگذاری اطلاعات سرویس‌ها...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal: Add / Edit Endpoint -->
+    <div class="modal fade" id="endpointModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="endpointModalTitle">افزودن وب‌سرویس جدید</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="endpointForm">
+                        <input type="hidden" id="endpointId" value="0">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-2">
+                                <label class="form-label text-muted small">شماره ردیف (idx)</label>
+                                <input type="number" id="formIndexNumber" class="form-control" value="1">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label text-muted small">متد HTTP</label>
+                                <select id="formHttpMethod" class="form-select code-font fw-bold">
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="OPTIONS">OPTIONS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                <label class="form-label text-muted small">آدرس URL</label>
+                                <input type="text" id="formUrlPath" class="form-control code-font" placeholder="/api/v1/fund/nav" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label text-muted small">عنوان فارسی وب‌سرویس</label>
+                                <input type="text" id="formTitle" class="form-control" placeholder="مثال: دریافت مشخصات صندوق" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label text-muted small">برچسب دسته‌بندی</label>
+                                <input type="text" id="formCategoryTag" class="form-control" placeholder="fund, customers, ...">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label text-muted small">کد وضعیت</label>
+                                <input type="number" id="formDefaultStatusCode" class="form-control" value="200">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="formIsActive" checked>
+                                <label class="form-check-label text-white small" for="formIsActive">سرویس فعال باشد</label>
+                            </div>
+                        </div>
+
+                        <!-- Request Body JSON -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label text-muted small mb-0">نمونه ورودی (Request Body JSON)</label>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="formatTextarea('formRequestBodyJson')">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> فرمت JSON
+                                </button>
+                            </div>
+                            <textarea id="formRequestBodyJson" class="form-control code-font" rows="3" placeholder='{"nationalCode": "{{nationalCode}}"}'></textarea>
+                        </div>
+
+                        <!-- Success Response JSON -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label text-muted small mb-0">پاسخ موفق (Success Response JSON) *</label>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="formatTextarea('formSuccessResponseJson')">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> فرمت JSON
+                                </button>
+                            </div>
+                            <textarea id="formSuccessResponseJson" class="form-control code-font" rows="5" placeholder='{"status": "SUCCESS"}' required></textarea>
+                        </div>
+
+                        <!-- Error Response JSON -->
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label text-muted small mb-0">پاسخ خطا جهت شبیه‌سازی (Error Response JSON)</label>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="formatTextarea('formErrorResponseJson')">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> فرمت JSON
+                                </button>
+                            </div>
+                            <textarea id="formErrorResponseJson" class="form-control code-font" rows="3" placeholder='{"errorCode": 400, "errorDescription": "خطا در ورودی"}'></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEndpoint()">
+                        <i class="fa-solid fa-check me-1"></i> ذخیره وب‌سرویس
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Batch Import JSON -->
+    <div class="modal fade" id="importModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">ایمپورت دسته‌ای وب‌سرویس‌ها از فایل JSON</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">
+                        آرایه سرویس‌های Node.js شرکت (مانند متغیر routes) را داخل کادر زیر Paste کنید. متدهای غیراستاندارد مانند OPTION به صورت خودکار به OPTIONS تبدیل شده و اسلش‌های اضافی اصلاح خواهند شد.
+                    </p>
+                    <div class="mb-3">
+                        <textarea id="batchJsonTextarea" class="form-control code-font" rows="12" placeholder='[
+  {
+    "idx": 1,
+    "method": "POST",
+    "url": "/api/v1/authenticate",
+    "title": "ورود سیستمی",
+    "response": { "clientToken": "mock_token..." },
+    "errorResponse": null,
+    "reqBody": { "username": "user", "password": "123" }
+  }
+]'></textarea>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="overwriteExistingCheck" checked>
+                        <label class="form-check-label text-white small" for="overwriteExistingCheck">
+                            به‌روزرسانی رکوردهای موجود با متد و آدرس URL مشابه
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" onclick="executeBatchImport()">
+                        <i class="fa-solid fa-cloud-arrow-up me-1"></i> شروع ایمپورت
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Global Variables -->
+    <div class="modal fade" id="variablesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">مدیریت متغیرهای سراسری (Global Variables)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">
+                        این متغیرها به صورت خودکار در خروجی پاسخ‌های JSON وب‌سرویس‌ها جایگزین خواهند شد. (مانند <code>{{nationalCode}}</code> یا <code>{{dsCode}}</code>)
+                    </p>
+                    <div class="row g-2 mb-4 bg-dark p-3 rounded-3 border border-secondary">
+                        <div class="col-md-4">
+                            <label class="form-label text-muted small">کلید توکن (مثلاً {{nationalCode}})</label>
+                            <input type="text" id="varKeyInput" class="form-control code-font" placeholder="{{nationalCode}}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted small">مقدار جایگزین</label>
+                            <input type="text" id="varValInput" class="form-control code-font" placeholder="0012345678">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label text-muted small">توضیحات</label>
+                            <input type="text" id="varDescInput" class="form-control" placeholder="کد ملی تستر">
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button class="btn btn-success w-100" onclick="saveVariable()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>کلید</th>
+                                    <th>مقدار جایگزین</th>
+                                    <th>توضیحات</th>
+                                    <th style="width: 80px;" class="text-center">حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="variablesTableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Test API Live Runner -->
+    <div class="modal fade" id="testApiModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">تست آنلاین وب‌سرویس</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span id="testMethodBadge" class="badge-method badge-GET">GET</span>
+                        <span id="testUrlDisplay" class="url-pill fs-6 flex-grow-1">/api/v1/fund/nav</span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">شبیه‌سازی کد خطا با هدر (x-mock-response-code):</label>
+                            <select id="testMockCodeHeader" class="form-select code-font">
+                                <option value="">بدون شبیه‌سازی (پاسخ 200 عادی)</option>
+                                <option value="400">400 - Bad Request (شبیه‌سازی خطا)</option>
+                                <option value="404">404 - Not Found</option>
+                                <option value="500">500 - Internal Server Error</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button class="btn btn-primary w-100 py-2" onclick="runLiveTest()">
+                                <i class="fa-solid fa-paper-plane me-1"></i> ارسال درخواست تست
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="testRequestBodyGroup" class="mb-3 d-none">
+                        <label class="form-label text-muted small">داده ارسالی (Request Body):</label>
+                        <textarea id="testRequestBodyInput" class="form-control code-font" rows="3"></textarea>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">نتیجه پاسخ زنده سرور:</span>
+                            <div>
+                                <span id="testStatusBadge" class="badge bg-secondary me-1">آماده ارسال</span>
+                                <span id="testTimeBadge" class="badge bg-dark border text-muted">0ms</span>
+                            </div>
+                        </div>
+                        <pre id="testResponseOutput" class="json-view">// منتظر ارسال درخواست...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let allEndpoints = [];
+        let currentMethodFilter = 'ALL';
+        let activeTestingEndpoint = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadEndpoints();
+        });
+
+        async function loadStats() {
+            try {
+                const res = await fetch('/api/admin-mgmt/stats');
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('statTotal').innerText = data.totalEndpoints.toLocaleString('fa-IR');
+                    document.getElementById('statActive').innerText = data.activeEndpoints.toLocaleString('fa-IR');
+                    document.getElementById('statCategories').innerText = data.categories.length.toLocaleString('fa-IR');
+
+                    // Populate categories dropdown
+                    const catSelect = document.getElementById('categorySelect');
+                    catSelect.innerHTML = '<option value="ALL">همه دسته‌بندی‌ها</option>';
+                    data.categories.sort().forEach(cat => {
+                        const opt = document.createElement('option');
+                        opt.value = cat;
+                        opt.textContent = cat;
+                        catSelect.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error("Error loading stats:", err);
+            }
+        }
+
+        async function loadEndpoints() {
+            const tbody = document.getElementById('endpointsTableBody');
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-muted"><div class="spinner-border text-primary spinner-border-sm me-2"></div> در حال دریافت اطلاعات...</td></tr>`;
+
+            try {
+                const res = await fetch('/api/admin-mgmt/endpoints');
+                if (res.ok) {
+                    allEndpoints = await res.json();
+                    filterEndpoints();
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">خطا در برقراری ارتباط با سرور.</td></tr>`;
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">خطا در بارگذاری لیست APIها.</td></tr>`;
+            }
+        }
+
+        function setMethodFilter(method) {
+            currentMethodFilter = method;
+            document.querySelectorAll('#methodFilters .filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-method') === method);
+            });
+            filterEndpoints();
+        }
+
+        function filterEndpoints() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const selectedCategory = document.getElementById('categorySelect').value;
+
+            const filtered = allEndpoints.filter(e => {
+                const matchesMethod = currentMethodFilter === 'ALL' || e.HttpMethod === currentMethodFilter;
+                const matchesCat = selectedCategory === 'ALL' || e.CategoryTag === selectedCategory;
+                const matchesSearch = !query || 
+                    (e.Title && e.Title.toLowerCase().includes(query)) ||
+                    (e.UrlPath && e.UrlPath.toLowerCase().includes(query));
+
+                return matchesMethod && matchesCat && matchesSearch;
+            });
+
+            document.getElementById('filteredCount').innerText = filtered.length.toLocaleString('fa-IR');
+            renderTable(filtered);
+        }
+
+        function renderTable(list) {
+            const tbody = document.getElementById('endpointsTableBody');
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-muted">هیچ وب‌سرویسی با شرایط فیلتر انتخاب شده یافت نشد.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map(item => `
+                <tr>
+                    <td class="text-muted small">${item.IndexNumber}</td>
+                    <td><span class="badge-method badge-${item.HttpMethod}">${item.HttpMethod}</span></td>
+                    <td>
+                        <span class="url-pill">${escapeHtml(item.UrlPath)}</span>
+                    </td>
+                    <td>
+                        <div class="fw-semibold text-white">${escapeHtml(item.Title)}</div>
+                    </td>
+                    <td>
+                        <span class="badge bg-dark border border-secondary text-info-emphasis">${escapeHtml(item.CategoryTag)}</span>
+                    </td>
+                    <td class="text-center">
+                        <div class="form-check form-switch d-inline-block">
+                            <input class="form-check-input" type="checkbox" ${item.IsActive ? 'checked' : ''} onchange="toggleEndpointStatus(${item.Id})">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-1">
+                            <button class="btn btn-sm btn-outline-info" title="تست زنده" onclick="openTestModal(${item.Id})">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" title="ویرایش" onclick="editEndpoint(${item.Id})">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" title="حذف" onclick="deleteEndpoint(${item.Id}, '${escapeHtml(item.Title)}')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Toggle Status
+        async function toggleEndpointStatus(id) {
+            try {
+                const res = await fetch(`/api/admin-mgmt/endpoints/${id}/toggle-status`, { method: 'PATCH' });
+                if (res.ok) {
+                    const data = await res.json();
+                    const ep = allEndpoints.find(x => x.Id === id);
+                    if (ep) ep.IsActive = data.isActive;
+                    loadStats();
+                }
+            } catch (err) {
+                console.error("Error toggling status:", err);
+            }
+        }
+
+        // Open Add Modal
+        function openEndpointModal() {
+            document.getElementById('endpointId').value = "0";
+            document.getElementById('endpointModalTitle').innerText = "افزودن وب‌سرویس جدید";
+            document.getElementById('formIndexNumber').value = (allEndpoints.length > 0 ? Math.max(...allEndpoints.map(e => e.IndexNumber)) + 1 : 1);
+            document.getElementById('formHttpMethod').value = "GET";
+            document.getElementById('formUrlPath').value = "";
+            document.getElementById('formTitle').value = "";
+            document.getElementById('formCategoryTag').value = "";
+            document.getElementById('formDefaultStatusCode').value = "200";
+            document.getElementById('formIsActive').checked = true;
+            document.getElementById('formRequestBodyJson').value = "";
+            document.getElementById('formSuccessResponseJson').value = "{}";
+            document.getElementById('formErrorResponseJson').value = "";
+
+            new bootstrap.Modal(document.getElementById('endpointModal')).show();
+        }
+
+        // Open Edit Modal
+        function editEndpoint(id) {
+            const ep = allEndpoints.find(x => x.Id === id);
+            if (!ep) return;
+
+            document.getElementById('endpointId').value = ep.Id;
+            document.getElementById('endpointModalTitle').innerText = `ویرایش وب‌سرویس: ${ep.Title}`;
+            document.getElementById('formIndexNumber').value = ep.IndexNumber;
+            document.getElementById('formHttpMethod').value = ep.HttpMethod;
+            document.getElementById('formUrlPath').value = ep.UrlPath;
+            document.getElementById('formTitle').value = ep.Title;
+            document.getElementById('formCategoryTag').value = ep.CategoryTag;
+            document.getElementById('formDefaultStatusCode').value = ep.DefaultStatusCode || 200;
+            document.getElementById('formIsActive').checked = ep.IsActive;
+            document.getElementById('formRequestBodyJson').value = formatJsonString(ep.RequestBodyJson);
+            document.getElementById('formSuccessResponseJson').value = formatJsonString(ep.SuccessResponseJson);
+            document.getElementById('formErrorResponseJson').value = formatJsonString(ep.ErrorResponseJson);
+
+            new bootstrap.Modal(document.getElementById('endpointModal')).show();
+        }
+
+        // Save (Create or Update)
+        async function saveEndpoint() {
+            const id = parseInt(document.getElementById('endpointId').value);
+            const model = {
+                Id: id,
+                IndexNumber: parseInt(document.getElementById('formIndexNumber').value) || 0,
+                HttpMethod: document.getElementById('formHttpMethod').value,
+                UrlPath: document.getElementById('formUrlPath').value.trim(),
+                Title: document.getElementById('formTitle').value.trim(),
+                CategoryTag: document.getElementById('formCategoryTag').value.trim(),
+                DefaultStatusCode: parseInt(document.getElementById('formDefaultStatusCode').value) || 200,
+                IsActive: document.getElementById('formIsActive').checked,
+                RequestBodyJson: document.getElementById('formRequestBodyJson').value.trim() || null,
+                SuccessResponseJson: document.getElementById('formSuccessResponseJson').value.trim() || "{}",
+                ErrorResponseJson: document.getElementById('formErrorResponseJson').value.trim() || null
+            };
+
+            if (!model.Title || !model.UrlPath) {
+                alert("لطفاً عنوان و آدرس مسیر را وارد نمایید.");
+                return;
+            }
+
+            const url = id > 0 ? `/api/admin-mgmt/endpoints/${id}` : '/api/admin-mgmt/endpoints';
+            const method = id > 0 ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(model)
+                });
+
+                if (res.ok) {
+                    bootstrap.Modal.getInstance(document.getElementById('endpointModal')).hide();
+                    await loadEndpoints();
+                    await loadStats();
+                } else {
+                    const err = await res.json();
+                    alert(err.message || "خطا در ذخیره اطلاعات.");
+                }
+            } catch (err) {
+                alert("خطا در ارسال درخواست به سرور.");
+            }
+        }
+
+        // Delete Endpoint
+        async function deleteEndpoint(id, title) {
+            if (!confirm(`آیا از حذف وب‌سرویس «${title}» اطمینان دارید؟`)) return;
+
+            try {
+                const res = await fetch(`/api/admin-mgmt/endpoints/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    await loadEndpoints();
+                    await loadStats();
+                }
+            } catch (err) {
+                alert("خطا در حذف وب‌سرویس.");
+            }
+        }
+
+        // Import Modal
+        function openImportModal() {
+            document.getElementById('batchJsonTextarea').value = "";
+            new bootstrap.Modal(document.getElementById('importModal')).show();
+        }
+
+        async function executeBatchImport() {
+            const raw = document.getElementById('batchJsonTextarea').value.trim();
+            if (!raw) {
+                alert("لطفاً داده‌های JSON را در کادر وارد نمایید.");
+                return;
+            }
+
+            const overwrite = document.getElementById('overwriteExistingCheck').checked;
+
+            try {
+                const res = await fetch('/api/admin-mgmt/import-batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jsonData: raw, overwriteExisting: overwrite })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message);
+                    bootstrap.Modal.getInstance(document.getElementById('importModal')).hide();
+                    await loadEndpoints();
+                    await loadStats();
+                } else {
+                    alert(data.message || "خطا در ایمپورت دسته‌ای.");
+                }
+            } catch (err) {
+                alert("خطا در ارتباط با سرور هنگام ایمپورت.");
+            }
+        }
+
+        // Global Variables Management
+        function openVariablesModal() {
+            loadVariables();
+            new bootstrap.Modal(document.getElementById('variablesModal')).show();
+        }
+
+        async function loadVariables() {
+            const tbody = document.getElementById('variablesTableBody');
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">در حال بارگذاری...</td></tr>`;
+
+            try {
+                const res = await fetch('/api/admin-mgmt/variables');
+                if (res.ok) {
+                    const list = await res.json();
+                    tbody.innerHTML = list.map(v => `
+                        <tr>
+                            <td><span class="url-pill">${escapeHtml(v.Key)}</span></td>
+                            <td class="code-font text-white">${escapeHtml(v.Value)}</td>
+                            <td class="text-muted small">${escapeHtml(v.Description || '')}</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteVariable(${v.Id})">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-danger text-center">خطا در بارگذاری متغیرها.</td></tr>`;
+            }
+        }
+
+        async function saveVariable() {
+            const key = document.getElementById('varKeyInput').value.trim();
+            const val = document.getElementById('varValInput').value.trim();
+            const desc = document.getElementById('varDescInput').value.trim();
+
+            if (!key || !val) {
+                alert("کلید و مقدار الزامی هستند.");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin-mgmt/variables', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, value: val, description: desc })
+                });
+
+                if (res.ok) {
+                    document.getElementById('varKeyInput').value = "";
+                    document.getElementById('varValInput').value = "";
+                    document.getElementById('varDescInput').value = "";
+                    await loadVariables();
+                }
+            } catch (err) {
+                alert("خطا در ذخیره متغیر.");
+            }
+        }
+
+        async function deleteVariable(id) {
+            if (!confirm("آیا از حذف این متغیر اطمینان دارید؟")) return;
+            try {
+                const res = await fetch(`/api/admin-mgmt/variables/${id}`, { method: 'DELETE' });
+                if (res.ok) await loadVariables();
+            } catch (err) {
+                alert("خطا در حذف متغیر.");
+            }
+        }
+
+        // Live Test API Runner
+        function openTestModal(id) {
+            const ep = allEndpoints.find(x => x.Id === id);
+            if (!ep) return;
+
+            activeTestingEndpoint = ep;
+            const badge = document.getElementById('testMethodBadge');
+            badge.className = `badge-method badge-${ep.HttpMethod}`;
+            badge.innerText = ep.HttpMethod;
+
+            document.getElementById('testUrlDisplay').innerText = ep.UrlPath;
+            document.getElementById('testMockCodeHeader').value = "";
+            document.getElementById('testStatusBadge').className = "badge bg-secondary me-1";
+            document.getElementById('testStatusBadge').innerText = "آماده ارسال";
+            document.getElementById('testTimeBadge').innerText = "0ms";
+            document.getElementById('testResponseOutput').innerText = "// روی دکمه «ارسال درخواست تست» کلیک کنید.";
+
+            const reqGroup = document.getElementById('testRequestBodyGroup');
+            if (ep.HttpMethod === 'POST' || ep.HttpMethod === 'PUT') {
+                reqGroup.classList.remove('d-none');
+                document.getElementById('testRequestBodyInput').value = formatJsonString(ep.RequestBodyJson);
+            } else {
+                reqGroup.classList.add('d-none');
+            }
+
+            new bootstrap.Modal(document.getElementById('testApiModal')).show();
+        }
+
+        async function runLiveTest() {
+            if (!activeTestingEndpoint) return;
+
+            const ep = activeTestingEndpoint;
+            const mockCode = document.getElementById('testMockCodeHeader').value;
+            const headers = { 'Content-Type': 'application/json' };
+            if (mockCode) {
+                headers['x-mock-response-code'] = mockCode;
+            }
+
+            const options = {
+                method: ep.HttpMethod,
+                headers
+            };
+
+            if (ep.HttpMethod === 'POST' || ep.HttpMethod === 'PUT') {
+                const body = document.getElementById('testRequestBodyInput').value.trim();
+                if (body) options.body = body;
+            }
+
+            const startTime = performance.now();
+            try {
+                const res = await fetch(ep.UrlPath, options);
+                const duration = Math.round(performance.now() - startTime);
+                const statusBadge = document.getElementById('testStatusBadge');
+                document.getElementById('testTimeBadge').innerText = `${duration}ms`;
+
+                statusBadge.innerText = `${res.status} ${res.statusText}`;
+                if (res.status >= 200 && res.status < 300) {
+                    statusBadge.className = "badge bg-success me-1";
+                } else {
+                    statusBadge.className = "badge bg-danger me-1";
+                }
+
+                const text = await res.text();
+                try {
+                    const parsed = JSON.parse(text);
+                    document.getElementById('testResponseOutput').innerText = JSON.stringify(parsed, null, 2);
+                } catch {
+                    document.getElementById('testResponseOutput').innerText = text;
+                }
+            } catch (err) {
+                document.getElementById('testStatusBadge').className = "badge bg-danger me-1";
+                document.getElementById('testStatusBadge').innerText = "خطا در اتصال";
+                document.getElementById('testResponseOutput').innerText = `Error: ${err.message}`;
+            }
+        }
+
+        // Helpers
+        function formatJsonString(str) {
+            if (!str) return "";
+            try {
+                return JSON.stringify(JSON.parse(str), null, 2);
+            } catch {
+                return str;
+            }
+        }
+
+        function formatTextarea(id) {
+            const el = document.getElementById(id);
+            if (!el || !el.value.trim()) return;
+            try {
+                const parsed = JSON.parse(el.value);
+                el.value = JSON.stringify(parsed, null, 2);
+            } catch (e) {
+                alert("فرمت JSON وارد شده نامعتبر است: " + e.message);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
